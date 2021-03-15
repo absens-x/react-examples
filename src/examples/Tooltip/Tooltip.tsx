@@ -10,7 +10,7 @@ interface ITooltopProps {
 const Tooltip: React.FC<ITooltopProps> = ({ children, text = 'What is it?' }) => {
     const [tooltipShow, setTooltipShow] = useState<boolean>(false);
 
-    const tooltipTargetRef = useRef(null);
+    const tooltipTargetRef = useRef<HTMLSpanElement>(null);
     const tooltipTextRef = useRef(null);
 
     const toggle = (): void => {
@@ -18,8 +18,8 @@ const Tooltip: React.FC<ITooltopProps> = ({ children, text = 'What is it?' }) =>
     };
 
     useEffect(() => {
-        const { offsetTop, offsetLeft }: { offsetTop: string; offsetLeft: string } = tooltipTargetRef.current;
-        console.log(offsetTop);
+        const { offsetTop, offsetLeft }: { offsetTop: string; offsetLeft: string } = tooltipTargetRef.current?
+        console.log(tooltipTargetRef.current);
     }, [tooltipShow]);
 
     return (

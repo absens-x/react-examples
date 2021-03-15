@@ -1,33 +1,35 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+
+import './Tooltip.scss';
 
 interface ITooltopProps {
     children: string;
     text: string;
 }
 
-interface ITooltopState {
-    opacity: boolean;
-}
-
 const Tooltip: React.FC<ITooltopProps> = ({ children, text = 'What is it?' }) => {
-    const [opacity, setOpacity] = useState<ITooltopState>({ opacity: false });
+    const [tooltipShow, setTooltipShow] = useState<boolean>(false);
+
     const tooltipTargetRef = useRef(null);
     const tooltipTextRef = useRef(null);
 
     const toggle = (): void => {
-        setOpacity({ opacity: !opacity });
+        setTooltipShow(!tooltipShow);
     };
+
+    useEffect(() => {
+        const { offsetTop, offsetLeft }: { offsetTop: string; offsetLeft: string } = tooltipTargetRef.current;
+        console.log(offsetTop);
+    }, [tooltipShow]);
+
     return (
         <span className="tooltip">
-            <span
-                className="tooltip-wrapper"
-                style={{ backgroundColor: 'red' }}
-                onMouseEnter={() => alert()}
-                ref={tooltipTargetRef}
-            >
+            <span className="tooltip-target" onMouseEnter={toggle} onMouseOut={toggle} ref={tooltipTargetRef}>
                 {children}
             </span>
-            <div className="tooltip-text">{text}</div>
+            <span ref={tooltipTextRef} className="tooltip-text">
+                {text}
+            </span>
         </span>
     );
 };

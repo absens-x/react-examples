@@ -1,0 +1,17 @@
+.tooltip-target {
+    font-weight: bold;
+    &:after {
+        content: '?';
+    }
+}
+
+.tooltip-text {
+    position: absolute;
+    display: block;
+    background-color: rgba($color: #000000, $alpha: 0.7);
+    border-radius: 4pxs;
+    z-index: -1000;
+    opacity: 0;
+    top: 0;
+    left: 0;
+}

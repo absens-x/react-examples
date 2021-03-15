@@ -18,17 +18,17 @@ const Tooltip: React.FC<ITooltopProps> = ({ children, text = 'What is it?' }) =>
         setOpacity({ opacity: !opacity });
     };
     return (
-        <div className="tooltip">
-            <div
+        <span className="tooltip">
+            <span
                 className="tooltip-wrapper"
                 style={{ backgroundColor: 'red' }}
                 onMouseEnter={() => alert()}
                 ref={tooltipTargetRef}
             >
                 {children}
-            </div>
-            {/* <div className="tooltip-text">{text}</div> */}
-        </div>
+            </span>
+            <div className="tooltip-text">{text}</div>
+        </span>
     );
 };
 

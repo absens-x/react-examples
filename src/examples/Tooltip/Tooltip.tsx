@@ -19,7 +19,7 @@ interface ITooltipTextProps {
 
 const TooltipText: React.FC<ITooltipTextProps> = ({ isActive, text, offsetTop, offsetLeft, offsetWidth }) => {
     const tooltipTextRef = useRef<HTMLSpanElement>(null);
-    let style: CSSProperties = { opacity: 0, top: -100, left: -100 };
+    let style: CSSProperties = { top: -100, left: -100, zIndex: -1000 };
 
     if (isActive) {
         const { offsetWidth: tooltipTextOffsetWidth } = tooltipTextRef.current as HTMLSpanElement;
@@ -27,7 +27,6 @@ const TooltipText: React.FC<ITooltipTextProps> = ({ isActive, text, offsetTop, o
             top: offsetTop + 20,
             left: offsetLeft + offsetWidth / 2 - tooltipTextOffsetWidth / 2,
             zIndex: 10000,
-            opacity: 1,
         };
     }
 
@@ -77,10 +76,10 @@ const Tooltip: React.FC<ITooltipProps> = ({ children, text = 'What is it?' }) =>
 
     return (
         <span className="tooltip">
-            <span className="tooltip-target" onMouseEnter={toggle} onMouseOut={toggle} ref={tooltipTargetRef}>
+            <span className="tooltip-target" onMouseEnter={toggle} onMouseLeave={toggle} ref={tooltipTargetRef}>
                 {children}
             </span>
-            <TooltipText {...data} />
+            {isActive ? <TooltipText {...data} /> : null}
         </span>
     );
 };

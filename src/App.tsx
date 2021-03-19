@@ -6,8 +6,9 @@ function App() {
     return (
         <div className="App">
             <p>
-                Lorem ipsum dolor sit amet <Tooltip text="this is a consectetur">consectetur</Tooltip> adipisicing elit.
-                Lorem {/* <Tooltip text="this is a ipsum">ipsum</Tooltip> */} dolor sit amet. Magni, repellendus.
+                <Tooltip text="this is a consectetur">Lll</Tooltip>Lorem ipsum dolor sit amet{' '}
+                <Tooltip text="this is a consectetur">consectetur</Tooltip> adipisicing elit. Lorem{' '}
+                {/* <Tooltip text="this is a ipsum">ipsum</Tooltip> */} dolor sit amet. Magni, repellendus.
             </p>
         </div>
     );

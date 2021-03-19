@@ -7,12 +7,15 @@ interface ITooltipProps {
     text: string;
 }
 
-interface ITooltipTextProps {
-    text: string;
-    isActive: boolean;
+interface IOffsetsOfElements {
     offsetTop: number;
     offsetLeft: number;
     offsetWidth: number;
+}
+
+interface ITooltipTextProps extends IOffsetsOfElements {
+    text: string;
+    isActive: boolean;
 }
 
 // -------------------------
@@ -22,10 +25,15 @@ const TooltipText: React.FC<ITooltipTextProps> = ({ isActive, text, offsetTop, o
     let style: CSSProperties = { top: -100, left: -100, zIndex: -1000 };
 
     if (isActive) {
-        const { offsetWidth: tooltipTextOffsetWidth } = tooltipTextRef.current as HTMLSpanElement;
+        const {
+            offsetWidth: tooltipTextOffsetWidth,
+        }: { offsetWidth: number } = tooltipTextRef.current as HTMLSpanElement;
+
+        let left = offsetLeft + offsetWidth / 2 - tooltipTextOffsetWidth / 2;
+        left = left < 0 ? 0 : left;
         style = {
             top: offsetTop + 20,
-            left: offsetLeft + offsetWidth / 2 - tooltipTextOffsetWidth / 2,
+            left,
             zIndex: 10000,
         };
     }
@@ -49,13 +57,12 @@ const Tooltip: React.FC<ITooltipProps> = ({ children, text = 'What is it?' }) =>
         isActive,
     });
     const tooltipTargetRef = useRef<HTMLSpanElement>(null);
-
     const toggle = (): void => {
         setIsActive(!isActive);
     };
 
     useEffect(() => {
-        const { offsetTop, offsetLeft, offsetWidth } = tooltipTargetRef.current as HTMLSpanElement;
+        const { offsetTop, offsetLeft, offsetWidth }: IOffsetsOfElements = tooltipTargetRef.current as HTMLSpanElement;
 
         setData(() => {
             if (isActive) {

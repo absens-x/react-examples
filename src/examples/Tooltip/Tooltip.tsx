@@ -29,8 +29,8 @@ const TooltipText: React.FC<ITooltipTextProps> = ({ isActive, text, offsetTop, o
             offsetWidth: tooltipTextOffsetWidth,
         }: { offsetWidth: number } = tooltipTextRef.current as HTMLSpanElement;
 
-        let left = offsetLeft + offsetWidth / 2 - tooltipTextOffsetWidth / 2;
-        left = left < 0 ? 0 : left;
+        let left: number = offsetLeft + offsetWidth / 2 - tooltipTextOffsetWidth / 2;
+        left = left < 0 ? offsetLeft : left;
         style = {
             top: offsetTop + 20,
             left,

@@ -6,9 +6,15 @@ function App() {
     return (
         <div className="App">
             <p>
-                <Tooltip text="this is a consectetur">Lll</Tooltip>Lorem ipsum dolor sit amet{' '}
-                <Tooltip text="this is a consectetur">consectetur</Tooltip> adipisicing elit. Lorem{' '}
-                {/* <Tooltip text="this is a ipsum">ipsum</Tooltip> */} dolor sit amet. Magni, repellendus.
+                В этом тексте где-то есть <Tooltip text="А вот и подсказка">подсказка</Tooltip>...
+            </p>
+            <p>
+                <Tooltip text="Вот эта подсказка">Здесь</Tooltip> находиться еще одна подсказка
+            </p>
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident voluptates nobis voluptatibus! Iusto
+                dolore architecto numquam, est ipsum nemo assumenda laboriosam itaque libero repellat? Impedit{' '}
+                <Tooltip text="Lorem ipsum">iuress</Tooltip> corporis ratione quo voluptas?
             </p>
         </div>
     );

@@ -1,53 +1,11 @@
-import React, { CSSProperties, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
+import { ITooltipTextProps, IOffsetsOfTooltip, ITooltipProps } from './types';
 import './Tooltip.scss';
 
-interface ITooltipProps {
-    children: string;
-    text: string;
-}
+import TooltipText from './TooltipText/TooltipText';
 
-interface IOffsetsOfElements {
-    offsetTop: number;
-    offsetLeft: number;
-    offsetWidth: number;
-}
-
-interface ITooltipTextProps extends IOffsetsOfElements {
-    text: string;
-    isActive: boolean;
-}
-
-// -------------------------
-
-const TooltipText: React.FC<ITooltipTextProps> = ({ isActive, text, offsetTop, offsetLeft, offsetWidth }) => {
-    const tooltipTextRef = useRef<HTMLSpanElement>(null);
-    let style: CSSProperties = { top: -100, left: -100, zIndex: -1000 };
-
-    if (isActive) {
-        const {
-            offsetWidth: tooltipTextOffsetWidth,
-        }: { offsetWidth: number } = tooltipTextRef.current as HTMLSpanElement;
-
-        let left: number = offsetLeft + offsetWidth / 2 - tooltipTextOffsetWidth / 2;
-        left = left < 0 ? offsetLeft : left;
-        style = {
-            top: offsetTop + 20,
-            left,
-            zIndex: 10000,
-        };
-    }
-
-    return (
-        <span style={style} className="tooltip-text" ref={tooltipTextRef}>
-            {text}
-        </span>
-    );
-};
-
-// -------------------------
-
-const Tooltip: React.FC<ITooltipProps> = ({ children, text = 'What is it?' }) => {
+const Tooltip: React.FC<ITooltipProps> = ({ children, text = 'Подсказка' }) => {
     const [isActive, setIsActive] = useState<boolean>(false);
     const [data, setData] = useState<ITooltipTextProps>({
         text,
@@ -57,12 +15,13 @@ const Tooltip: React.FC<ITooltipProps> = ({ children, text = 'What is it?' }) =>
         isActive,
     });
     const tooltipTargetRef = useRef<HTMLSpanElement>(null);
-    const toggle = (): void => {
+
+    function toggle(): void {
         setIsActive(!isActive);
-    };
+    }
 
     useEffect(() => {
-        const { offsetTop, offsetLeft, offsetWidth }: IOffsetsOfElements = tooltipTargetRef.current as HTMLSpanElement;
+        const { offsetTop, offsetLeft, offsetWidth }: IOffsetsOfTooltip = tooltipTargetRef.current as HTMLSpanElement;
 
         setData(() => {
             if (isActive) {
@@ -74,6 +33,7 @@ const Tooltip: React.FC<ITooltipProps> = ({ children, text = 'What is it?' }) =>
                     offsetWidth,
                 };
             }
+
             return {
                 ...data,
                 isActive,

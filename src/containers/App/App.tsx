@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.scss';
-import Tooltip from './examples/Tooltip/Tooltip';
+import Tooltip from '../../examples/Tooltip/Tooltip';
 
 function App() {
     return (
